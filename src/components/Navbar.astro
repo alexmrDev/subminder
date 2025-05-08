@@ -3,14 +3,60 @@ import {
   SignedIn,
   SignedOut,
   UserButton,
-  SignInButton,
 } from "@clerk/astro/components";
+
+const user = await Astro.locals.currentUser();
+
+const navElements = user
+  ? [
+      {
+        name: "MY SITE",
+        href: "/user/dashboard",
+        icon: "",
+      },
+      {
+        name: "NOTIFICATIONS",
+        href: "/user/notifications",
+        icon: "",
+      },
+      {
+        name: "ADD",
+        href: "/user/add-sub",
+        icon: "",
+      },
+    ]
+  : [];
 ---
 
-<nav>
-  <div>
+<nav
+  class="flex items-center justify-between p-2 w-full z-[100] bg-white/50 backdrop-blur-md sticky top-0"
+>
+  <div class="p-2">
+    <ul class="flex items-center justify-center">
+      <li class="text-2xl font-bold text-shadow-2xs">
+        <a href="/">Subminder</a>
+      </li>
+
+      <div class="ml-12 gap-4 flex items-center justify-center">
+        {
+          navElements.map((element) => (
+            <li>
+              <a href={element.href}>{element.name}</a>
+            </li>
+          ))
+        }
+      </div>
+    </ul>
+  </div>
+  <div class="p-2">
     <SignedOut>
-      <SignInButton mode="modal" />
+      <button
+        ><a
+          href="/login"
+          class="p-2 rounded-lg shadow text-white bg-blue-600 hover:bg-blue-900 cursor-pointer"
+          >Sign In</a
+        ></button
+      >
     </SignedOut>
     <SignedIn>
       <UserButton />

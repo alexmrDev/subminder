@@ -1,0 +1,10 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { SignIn } from "@clerk/astro/components";
+---
+
+<Layout title="Subminder - Sign In" hideNav>
+  <div class="flex items-center justify-center my-16">
+    <SignIn redirectUrl="/user/dashboard" />
+  </div>
+</Layout>
